@@ -89,48 +89,7 @@ class Tickets extends React.Component{
                         </tbody>
                     </table>
                 </div>
-                <h1>Tickets-{ this.props.ticketsCompleted.length}</h1>
-                <button>pending</button>
-                <button>Completed</button>
-                
-                <table border='1'>
-                    <thead>
-                        <tr>
-                            <th>Code No</th>
-                            <th>Customer</th>
-                            <th>Department</th>
-                            <th>Employee</th>
-                            <th>Message</th>
-                            <th>Priority</th>
-                            <th>Actions</th>
-                            <th>Remove</th>
-                            <th>Complete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                            {
-                            this.props.ticketsCompleted.map(ticket=>{  
-                                return (
-                                    <tr>
-                                        <td>{ticket.code}</td>
-                                        <td>{this.props.customers.filter(cust=>cust._id==ticket.customer).map(cus=>cus.name)}</td>
-                                        <td>{this.props.departments.filter(dept=>dept._id==ticket.department).map(dep=>dep.name)}</td>
-                                        <td>{this.props.employees.filter(em=>em._id==ticket.employees.map(tick=>{
-                                    return tick._id
-                                })).map(emp=>emp.name)}</td>
-                                        <td>{ticket.message}</td>
-                                        <td>{ticket.priority}</td>
-                                        <td><button><Link to={`/tickets/${ticket._id}`}>show</Link></button></td>
-                                        <td><button onClick={
-                                            ()=>{this.props.dispatch(startRemoveTicket(ticket._id))}
-                                        }>remove</button></td>
-                                        <td><input type='checkbox' checked={ticket.isResolved} onChange={()=>{this.handleClick(ticket._id);this.handleCompleted(ticket._id)}}/></td>
-                                    </tr>
-                                )
-                            })
-                        }
-                    </tbody>
-                    </table>
+               
                 <p><Link to='/tickets/new'>Add Ticket</Link></p>
             </div>
             </Container>
