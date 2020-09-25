@@ -15,7 +15,12 @@ export const startGetPostCustomer = (data,redirect,success)=>{
             .then((response)=>{
                 console.log(response)
                 if(response.data.hasOwnProperty('errors')){
-                    alert(response.data.message)
+                   swal({
+                    title: "Alert Message",
+                    text: `${response.data.message}`,
+                    icon: "error",
+                    dangerMode: true
+                  })
                 }
                 else{
                     success()
@@ -59,10 +64,7 @@ export const setRemoveCustomer=(id)=>{
 
 
 export const startRemoveCustomer=(id)=>{
-    
     return (dispatch)=>{
-        const confirm=window.confirm('Are you sure u want to delete')
-    if(confirm){
        axios.delete(`/customers/${id}`,{
            headers:{
             'x-auth':localStorage.getItem('authToken')
@@ -78,7 +80,7 @@ export const startRemoveCustomer=(id)=>{
            console.log(err)
        }) 
     }
-}
+
 }
 
 export const  setEditCustomer=(id,data)=>{
@@ -97,7 +99,13 @@ export const startEditCustomer=(data,id,success,redirect)=>{
         .then((response)=>{
             console.log(response)
            if(response.data.hasOwnProperty('errors')){
-               alert(response.data.message)
+              // alert(response.data.message)
+              swal({
+                title: "Alert Message",
+                text: `${response.data.message}`,
+                icon: "error",
+                dangerMode: true
+              })
                
            }
            else{

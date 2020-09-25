@@ -1,43 +1,37 @@
-const ticketsReducer=(state=[],action)=>{
+const initialState=[]
+const ticketsReducer=(state=initialState,action)=>{
     switch(action.type){
         case 'SET_TICKET':{
-            return state.concat(action.payload)
+            return [...state,action.payload]
         }
         case 'GET_TICKETS':{
-            return [].concat(action.payload)
+            return [...action.payload]
         }
          case 'REMOVE_TICKET':{
-                return state.filter(ticket=>{
-                    return ticket._id!=action.payload
-                })
+                return state.filter(ticket=>ticket._id!=action.payload)
          }
          case 'STATUS_CHANGE':{
              return state.map(tick=>{
-                 if(tick._id==action.payload){
-                     return Object.assign({},tick,{isResolved:!tick.isResolved})
+                 if(tick._id===action.payload.id){
+                     return {...action.payload.data}
                  }
                  else{
-                     return Object.assign({},tick)
+                     return {...tick}
                  }
-             })
-         }
-         case 'REMSTATUS_TICKET':{
-             return state.filter(tick=>{
-                return tick._id!=action.payload
              })
          }
          case 'EDIT_TICKET':{
              return state.map(tick=>{
-                 if(tick._id==action.payload.id){
-                     return Object.assign({},tick,action.payload.data)
+                 if(tick._id===action.payload.id){
+                     return {...action.payload.ticket}
                  }
                  else{
-                     return Object.assign({},tick)
+                     return {...tick}
                  }
              })
          }
         default:{
-            return [].concat(state)
+            return [...state]
         }
     }
 }

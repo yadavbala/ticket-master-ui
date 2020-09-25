@@ -22,7 +22,6 @@ class Register extends React.Component{
 
     handleSubmit=(e)=>{
         e.preventDefault()
-       // const valid=this.validate()
         const formData={
             username:this.state.username,
             email:this.state.email,
@@ -36,13 +35,11 @@ class Register extends React.Component{
            
         }
         const success=()=>{
-            this.setState({success:'your details registered'})
+            this.setState({success:'your details has been  registered successfully'})
         }
         this.props.dispatch(startPostRegisterData(formData,redirect,success))
-    
-    
+
      this.setState(initialState)   
-     
     }
     render(){
         return(

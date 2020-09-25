@@ -4,11 +4,31 @@ import {connect} from 'react-redux'
 import {startGetEmployees} from '../../actions/employeesAction'
 import {startRemoveEmployee} from '../../actions/employeesAction'
 import {Container,Button} from 'bootstrap-4-react'
+import {findDepartmentOnId} from '../../selectors/DepartmentSelector'
+import swal from 'sweetalert'
+import { BsTrash} from "react-icons/bs";
 class Employees extends React.Component{
-    componentDidMount(){
+   /* componentDidMount(){
         if(this.props.employees.length==0){
             this.props.dispatch(startGetEmployees())
         }
+    }*/
+    handleRemove=(id)=>{
+        swal({
+            title:'are you sure u want to delete',
+            icon:'warning',
+            buttons:true,
+            dangerMode:true
+        })
+        .then((willDelete)=>{
+            if(willDelete){
+            this.props.dispatch(startRemoveEmployee(id))
+             swal('successfully deleted',{
+                 icon:'success'
+             })
+             
+         }
+        })
     }
     render(){
         return(
@@ -31,7 +51,7 @@ class Employees extends React.Component{
                             <tbody>
                                 {
                                     this.props.employees.map((emp,i)=>{
-                                    const dept=this.props.departments.find(dept=>dept._id==emp.department)
+                                    const dept=findDepartmentOnId(this.props.departments,emp.department)
                                     console.log(dept)
                                         return(
                                         <tr key={emp._id}>
@@ -42,8 +62,8 @@ class Employees extends React.Component{
                                             <td>{dept&&dept.name}</td>
                                             <td><Link to={`employees/${emp._id}`}><Button primary>show</Button></Link></td>
                                             <td><Button danger onClick={
-                                                ()=>{this.props.dispatch(startRemoveEmployee(emp._id))}
-                                            }>remove</Button></td>
+                                                ()=>{this.handleRemove(emp._id)}
+                                            }><BsTrash/></Button></td>
                                         </tr>
                                         )
                                     })

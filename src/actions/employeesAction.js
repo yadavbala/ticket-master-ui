@@ -1,6 +1,6 @@
 import axios from '../config/configureAxios'
 import { setEditCustomer } from './customersAction'
-
+import swal from 'sweetalert'
 export const setPostEmployee=(emp)=>{
     return {type:'SET_EMPLOYEE',payload:emp}
 }
@@ -14,7 +14,13 @@ export const startPostEmployee=(data,success,redirect)=>{
         })
         .then((response)=>{
             if(response.data.hasOwnProperty('errors')){
-                alert(response.data.message)
+                //alert(response.data.message)
+                swal({
+                    title: "Alert Message",
+                    text: `${response.data.message}`,
+                    icon: "error",
+                    dangerMode: true
+                  })
             }
             else{
                 success()
@@ -57,8 +63,7 @@ export const setRemoveEmployee=(id)=>{
 
 export const startRemoveEmployee=(id)=>{
     return (dispatch)=>{
-        const confirm=window.confirm('are you sure u want to delete')
-        if(confirm){
+       
         axios.delete(`employees/${id}`,{
             headers:{
                 'x-auth':localStorage.getItem('authToken')
@@ -75,7 +80,7 @@ export const startRemoveEmployee=(id)=>{
             console.log(err)
         })
     }
-    }
+    
 }
 
 export const setEditEmployee=(id,data)=>{
@@ -94,7 +99,13 @@ export const startEditEmployee=(data,id,success,redirect)=>{
         .then((response)=>{
             console.log(response)
             if(response.data.hasOwnProperty('errors')){
-                alert(response.data.message)
+               // alert(response.data.message)
+               swal({
+                title: "Alert Message",
+                text: `${response.data.message}`,
+                icon: "error",
+                dangerMode: true
+              })
             }
             else{
                 success()

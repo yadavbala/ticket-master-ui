@@ -1,12 +1,13 @@
 import React from 'react'
-import {startAddDepartment} from '../../actions/departmentsAction'
+import {startAddDepartment, startEditDepartment} from '../../actions/departmentsAction'
 import {connect} from 'react-redux'
-import {Container,Row,Col,Button,Card} from 'bootstrap-4-react'
-class AddDepartment extends React.Component{
-    constructor(){
-        super()
+import {Container,Row,Col,Button,Card,Alert} from 'bootstrap-4-react'
+import {withRouter} from 'react-router-dom'
+class DepartmentForm extends React.Component{
+    constructor(props){
+        super(props)
         this.state={
-            department:'',
+            department:props.department ? props.department.name:'',
             success:''
         }
     }
@@ -24,28 +25,34 @@ class AddDepartment extends React.Component{
         }
         console.log(formData)
         const success=()=>{
-             this.setState({success:'department added successfully'})
+             this.setState({success:this.props.department?'department edited successfully':'department added successfully'})
          }
          const redirect=()=>{
              setTimeout(()=>{
                  this.props.history.push('/departments')
              },3000)
          }
-        this.props.dispatch(startAddDepartment(formData,success,redirect))
+         if(this.props.department){
+            this.props.dispatch(startEditDepartment(formData,this.props.department._id,success,redirect))
+         }
+         else{
+            this.props.dispatch(startAddDepartment(formData,success,redirect))
+         }
+       
         this.setState({department:''})
 }
 
     render(){
         return(
-            <Container>
+           
                 <div>
-                    <h1 style={{marginBottom:'40px'}}>Add Department</h1>
+                   
                     <Card className='align-card'>
                         <form onSubmit={this.handleSubmit}>
                             <div className='form-group'>
                                 <Row>
-                                    <Col col='col-lg-2 col-sm-3 col-12'><label htmlFor='department'>Department</label></Col>
-                                    <Col col='col-lg-10 col-sm-9 col-12'>
+                                    <Col col='col-lg-2 sm-3 12'><label htmlFor='department'>Department</label></Col>
+                                    <Col col='col-lg-10 sm-9 12'>
                                     <input
                                     type='text'
                                     value={this.state.department}
@@ -63,12 +70,13 @@ class AddDepartment extends React.Component{
                             </div>
                         
                         </form>
-                        <p className='success-message'>{this.state.success}</p>
+                      
                     </Card>
+                    {this.state.success &&<Alert success style={{marginTop:'15px'}}>{this.state.success}</Alert>}
                 </div>
-            </Container>
+           
         )
     }
 }
 
-export default connect()(AddDepartment)
+export default withRouter(connect()(DepartmentForm))

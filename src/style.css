@@ -86,7 +86,7 @@ html,body{
 }
 
 .align-card{
-    padding:50px;
+    padding:45px;
     background-color: antiquewhite;
 }
 
@@ -97,3 +97,52 @@ html,body{
     color:green;
     margin-top: 20px;
 }
+
+#multiselectContainerReact{
+    background: #fff;
+}
+
+#animation{
+   animation-name:example;
+   animation-duration: 4s;
+   margin:5px 0 20px;
+   padding:10px;
+   color:#fff
+}
+@keyframes example {
+    0%   {background-color:red!important; }
+    25%  {background-color:yellow!important;}
+    50%  {background-color:blue!important;}
+    75%  {background-color:green!important;}
+    
+    100% {background-color:red!important;}
+  }
+
+  .back-link{
+    background-color: lightcoral;
+    width: 50%;
+    box-shadow: 0 0 2px 2px lightcoral;
+    text-align: center;
+     margin-top: 15px;
+  }
+
+  .back-link a{
+      color: #fff;
+  }
+
+  .style-input{
+      border: 0;
+      outline: 0;
+      border:2px solid burlywood;
+  }
+
+  .padding-0{
+      padding-left: 0;
+      padding-right: 0;
+  }
+
+  #ticket-show{
+    padding: 12px;
+    color: #fff;
+    background:blueviolet;
+  }

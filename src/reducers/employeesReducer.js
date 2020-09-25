@@ -1,29 +1,28 @@
-const employeesReducer=(state=[],action)=>{
+const initialState=[]
+const employeesReducer=(state=initialState,action)=>{
     switch(action.type){
         case 'SET_EMPLOYEE':{
-            return state.concat(action.payload)
+            return [...state,action.payload]
         }
         case 'GET_EMPLOYEES':{
-            return [].concat(action.payload)
+            return [...action.payload]
         }
         case 'REMOVE_EMPLOYEE':{
-            return state.filter(emp=>{
-                    return emp._id!=action.payload
-            })
+            return state.filter(emp=>emp._id===action.payload)
                
         }
         case 'EDIT_EMPLOYEE':{
             return state.map(emp=>{
                 if(emp._id==action.payload.id){
-                    return Object.assign({},emp,action.payload.data)
+                    return {...action.payload.data}
                 }
                 else{
-                    return Object.assign({},emp)
+                    return {...emp}
                 }
             })
         }
         default:{
-            return [].concat(state)
+            return [...state]
         }
     }
 }

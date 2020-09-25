@@ -1,31 +1,30 @@
- const departmentsReducer=(state=[],action)=>{
+const initialState=[]
+ const departmentsReducer=(state=initialState,action)=>{
         switch(action.type){
-           case 'SET_ADD_DEPARTMENT':{
-                return state.concat(action.payload)
+           case 'ADD_DEPARTMENT':{
+                return [...state,action.payload]
             }
             case 'GET_DEPARTMENTS':{
-                return [].concat(action.payload)
+                return [...action.payload]
             }
 
             case 'REMOVE_DEPARTMENT':{
-                return state.filter(dept=>{
-                    return dept._id!=action.payload
-                })
+                return state.filter(dept=>dept._id!=action.payload)
             }
 
             case 'EDIT_DEPARTMENT':{
                 return state.map(dep=>{
-                    if(dep._id==action.payload.id){
-                        return Object.assign({},dep,action.payload.dept)
+                    if(dep._id===action.payload.id){
+                        return {...action.payload.dept}
                     }
                     else{
-                        return Object.assign({},dep)
+                        return {...dep}
                     }
                 })
             }
             
             default:{
-                return [].concat(state)
+                return [...state]
             }
         }
  }

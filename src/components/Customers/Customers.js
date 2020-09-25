@@ -4,11 +4,29 @@ import {Link} from 'react-router-dom'
 import {startGetCustomers} from '../../actions/customersAction'
 import {startRemoveCustomer} from '../../actions/customersAction'
 import {Container,Button} from 'bootstrap-4-react'
+import swal from 'sweetalert'
+import { BsTrash} from "react-icons/bs";
 class Customers extends React.Component{
-  componentDidMount(){
+/* componentDidMount(){
        if(this.props.customers.length==0){
        this.props.dispatch(startGetCustomers())
        }
+   }*/
+   handleRemove=(id)=>{
+       swal({
+           title:'are you sure u want to delete',
+           icon:'warning',
+           buttons:true,
+           dangerMode:true
+       })
+       .then((willDelete)=>{
+           if(willDelete){
+            swal('successfully deleted',{
+                icon:'success'
+            })
+            this.props.dispatch(startRemoveCustomer(id))
+        }
+       })
    }
     render(){
         return(
@@ -39,8 +57,8 @@ class Customers extends React.Component{
                                                 <td>{cust.mobile}</td>
                                                 <td><Link to={`/customers/${cust._id}`}><Button primary>show</Button></Link></td>
                                                 <td><Button danger onClick={()=>{
-                                                    this.props.dispatch(startRemoveCustomer(cust._id))
-                                                }}>remove</Button></td>
+                                                   this.handleRemove(cust._id)
+                                                }}><BsTrash/></Button></td>
                                             </tr>
                                         )
                                     })

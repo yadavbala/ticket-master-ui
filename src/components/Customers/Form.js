@@ -1,16 +1,17 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {startGetPostCustomer} from '../../actions/customersAction'
-import {Container,Row,Col,Button,Card} from 'bootstrap-4-react'
-class AddCustomer extends React.Component{
-    constructor(){
-        super()
-        this.state={
-            name:'',
-            email:'',
-            mobile:'',
-            success:''
+import {startGetPostCustomer, startEditCustomer} from '../../actions/customersAction'
+import {Container,Row,Col,Button,Card,Alert} from 'bootstrap-4-react'
+import {withRouter} from 'react-router-dom'
 
+class CustomerForm extends React.Component{
+    constructor(props){
+        super(props)
+        this.state={
+            name:props.customer? props.customer.name:'',
+            email:props.customer ? props.customer.email:'',
+            mobile:props.customer ? props.customer.mobile:'',
+            success:''
         }
     }
 
@@ -35,28 +36,30 @@ class AddCustomer extends React.Component{
            
         }
         const success=()=>{
-            this.setState({success:'your details has been submitted successfully'})
+            this.setState({success:this.props.customer ?'customer details edited successfully':'customer details has been submitted successfully'})
         }
-        
+        if(this.props.customer){
+            this.props.dispatch(startEditCustomer(formData,this.props.customer._id,redirect,success))
+        }
+        else{
         this.props.dispatch(startGetPostCustomer(formData,redirect,success))
+        }
         this.setState({
             name:'',
             email:'',
             mobile:''
         })
     }
-
+    
     render(){
         return(
-            <Container>
-                <div>
-                    <h1 style={{marginBottom:'40px'}}>Add Customer</h1>
+                <React.Fragment>
                     <Card className='align-card'>
                         <form onSubmit={this.handleSubmit}>
                             <div className='form-group'>
                                 <Row>
-                                    <Col col='col-lg-2 col-sm-3 col-12'><label htmlFor='name' style={{width:'100%',textAlign:'center'}}>Name</label></Col>
-                                    <Col col='col-lg-10 col-sm-9 col-12'>
+                                    <Col col='col-lg-2 sm-3 12'><label htmlFor='name' style={{width:'100%',textAlign:'center'}}>Name</label></Col>
+                                    <Col col='col-lg-10 sm-9 12'>
                                     <input
                                         type='text'
                                         value={this.state.name}
@@ -72,8 +75,8 @@ class AddCustomer extends React.Component{
                             </div>
                             <div className='form-group'>
                                 <Row>
-                                    <Col col='col-lg-2 col-sm-3 col-12'><label htmlFor='email' style={{width:'100%',textAlign:'center'}}>Email</label></Col>
-                                    <Col col='col-lg-10 col-sm-9 col-12'>
+                                    <Col col='col-lg-2 sm-3 12'><label htmlFor='email' style={{width:'100%',textAlign:'center'}}>Email</label></Col>
+                                    <Col col='col-lg-10 sm-9 12'>
                                     <input
                                         type='text'
                                         value={this.state.email}
@@ -89,8 +92,8 @@ class AddCustomer extends React.Component{
                             </div>
                             <div className='form-group'>
                                 <Row>
-                                    <Col col='col-lg-2 col-sm-3 col-12'><label htmlFor='password' style={{width:'100%',textAlign:'center'}}>Mobile</label></Col>
-                                    <Col col='col-lg-10 col-sm-9 col-12'>
+                                    <Col col='col-lg-2 sm-3 12'><label htmlFor='mobile' style={{width:'100%',textAlign:'center'}}>Mobile</label></Col>
+                                    <Col col='col-lg-10 sm-9 12'>
                                         <input
                                             type='number'
                                             value={this.state.mobile}
@@ -108,12 +111,13 @@ class AddCustomer extends React.Component{
                                 <Button success type='submit'>submit</Button>
                             </div>
                         </form>
-                        <p className='success-message'>{this.state.success}</p>
+                       
                     </Card>
-                </div>
-            </Container> 
+                    {this.state.success &&<Alert success style={{marginTop:'15px'}}>{this.state.success}</Alert>}
+                </React.Fragment>
+           
         )
     }
 }
 
-export default connect()(AddCustomer)
+export default withRouter(connect()(CustomerForm))

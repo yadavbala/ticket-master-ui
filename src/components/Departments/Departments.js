@@ -4,13 +4,31 @@ import {Link} from 'react-router-dom'
 import {Container,Button} from 'bootstrap-4-react'
 import {startGetDepartments} from '../../actions/departmentsAction'
 import {startRemoveDepartment} from '../../actions/departmentsAction'
+import swal from 'sweetalert'
+import { BsTrash} from "react-icons/bs";
 class Departments extends React.Component{
     
-
-    componentDidMount(){
+   /* componentDidMount(){
         if(this.props.departments.length==0){
            this.props.dispatch(startGetDepartments())
         }
+    }*/
+    handleRemove=(id)=>{
+        swal({
+            title:'are you sure u want to delete',
+            icon:'warning',
+            buttons:true,
+            dangerMode:true
+        })
+        .then((willDelete)=>{
+            if(willDelete){
+            this.props.dispatch(startRemoveDepartment(id))
+             swal('successfully deleted',{
+                 icon:'success'
+             })
+             
+         }
+        })
     }
     render(){
         return(
@@ -34,12 +52,11 @@ class Departments extends React.Component{
                                         <td>{dept.name}</td>
                                         <td><div><Link to={`/departments/${dept._id}`}><Button primary>show</Button></Link></div></td>
                                         <td><Button danger onClick={
-                                            ()=>{this.props.dispatch(startRemoveDepartment(dept._id))}
-                                        }>remove</Button></td>
+                                            ()=>{this.handleRemove(dept._id)}
+                                        }><BsTrash/></Button></td>
                                     </tr>
                                     )
-                                })
-                                
+                                })   
                             }
                             </tbody>
                         </table>

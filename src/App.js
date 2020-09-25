@@ -1,51 +1,72 @@
 import React from 'react'
 import {BrowserRouter as Router,Link,Route,Switch} from 'react-router-dom'
-import Home from './components/static/Home'
-import Register from './components/auth/Register'
-import Login from './components/auth/Login'
 import {connect} from 'react-redux'
 import {startUserLogout} from './actions/userAction'
-import Customers from './components/auth/Customers'
-import AddCustomer from './components/auth/AddCustomer'
-import CustomerShow from './components/auth/CustomerShow'
-import Departments from './components/auth/Departments'
-import AddDepartment from './components/auth/AddDepartment'
-import DepartmentShow from './components/auth/DepartmentShow'
-import Employees from './components/auth/Employees'
-import AddEmployee from './components/auth/AddEmployee'
-import EmployeeShow from './components/auth/EmployeeShow'
-import Tickets from './components/auth/Tickets'
-import AddTicket from './components/auth/AddTicket'
-import TicketShow from './components/auth/TicketShow'
-import EditCustomer from './components/auth/EditCustomer'
-import EditDepartment from './components/auth/EditDepartment'
-import EditEmployee from './components/auth/EditEmployee'
-import EditTicket from './components/auth/EditTicket'
+import swal from 'sweetalert'
+import {PrivateRoute} from './helpers/privateRoute'
+
+import Home from './components/static/Home'
+
+import Register from './components/auth/Register'
+import Login from './components/auth/Login'
+import Dashboard from './components/auth/Dashboard'
+import Account from './components/auth/Account'
+
+import Customers from './components/Customers/Customers'
+import AddCustomer from './components/Customers/AddCustomer'
+import CustomerShow from './components/Customers/CustomerShow'
+import EditCustomer from './components/Customers/EditCustomer'
+
+import Departments from './components/Departments/Departments'
+import AddDepartment from './components/Departments/AddDepartment'
+import DepartmentShow from './components/Departments/DepartmentShow'
+import EditDepartment from './components/Departments/EditDepartment'
+
+import Employees from './components/Employees/Employees'
+import AddEmployee from './components/Employees/AddEmployee'
+import EmployeeShow from './components/Employees/EmployeeShow'
+import EditEmployee from './components/Employees/EditEmployee'
+
+import Tickets from './components/Tickets/Tickets'
+import AddTicket from './components/Tickets/AddTicket'
+import TicketShow from './components/Tickets/TicketShow'
+import EditTicket from './components/Tickets/EditTicket'
+
  function App(props){
     const handleLogout=()=>{
-        props.dispatch(startUserLogout())
+        swal({
+            title:'are you sure u want to logout',
+            icon:'warning',
+            buttons:true,
+            dangerMode:true
+        })
+        .then((willDelete)=>{
+            if(willDelete){
+             props.dispatch(startUserLogout()) 
+         }
+        })
+       
     }
     return(
         <Router>
             <div>
-                
                 {Object.keys(props.user).length==0 ?(
                         <div>
-                            <nav class="navbar navbar-expand-sm bg-light">
-                                <a class="navbar-brand">ticket master</a>
-                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-                                <span class="navbar-toggler-icon"></span>
+                            <nav className="navbar navbar-expand-sm bg-light">
+                                <a className="navbar-brand">ticket master</a>
+                                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                                <span className="navbar-toggler-icon"></span>
                                 </button>
-                                <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                                    <ul class=" ml-auto navbar-nav">
-                                        <li class="nav-item">
-                                            <a class="nav-link"><Link to='/'>Home</Link></a>
+                                <div className="collapse navbar-collapse" id="collapsibleNavbar">
+                                    <ul className=" ml-auto navbar-nav">
+                                        <li className="nav-item">
+                                            <span className="nav-link"><Link to='/'>Home</Link></span>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link"> <Link to='/users/login'>Login</Link></a>
+                                        <li className="nav-item">
+                                            <span className="nav-link"> <Link to='/users/login'>Login</Link></span>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link"> <Link to='/users/register'>Register</Link></a>
+                                        <li className="nav-item">
+                                            <span className="nav-link"> <Link to='/users/register'>Register</Link></span>
                                         </li>
                                     </ul>
                                 </div>
@@ -53,30 +74,36 @@ import EditTicket from './components/auth/EditTicket'
                         </div>
                       ):(
                         <div>
-                             <nav class="navbar navbar-expand-sm bg-light">
-                                <a class="navbar-brand">ticket master</a>
-                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-                                <span class="navbar-toggler-icon"></span>
+                             <nav className="navbar navbar-expand-sm bg-light">
+                                <a className="navbar-brand">ticket master</a>
+                                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                                <span className="navbar-toggler-icon"></span>
                                 </button>
-                                <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                                    <ul class=" ml-auto navbar-nav">
-                                        <li class="nav-item">
-                                            <a class="nav-link"><Link to='/'>Home</Link></a>
+                                <div className="collapse navbar-collapse" id="collapsibleNavbar">
+                                    <ul className=" ml-auto navbar-nav">
+                                        <li className="nav-item">
+                                            <span className="nav-link"><Link to='/'>Home</Link></span>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link"> <Link to='/customers'>Customers</Link></a>
+                                        <li className="nav-item">
+                                            <span className="nav-link"><Link to='/account'>Account</Link></span>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link"> <Link to='/departments'>Departments</Link></a>
+                                        <li className="nav-item">
+                                            <span className="nav-link"><Link to='/dashboard'>Dashboard</Link></span>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link"> <Link to='/employees'>Employees</Link></a>
+                                        <li className="nav-item">
+                                            <span className="nav-link"> <Link to='/customers'>Customers</Link></span>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link">  <Link to='/tickets'>Tickets</Link></a>
+                                        <li className="nav-item">
+                                            <span className="nav-link"> <Link to='/departments'>Departments</Link></span>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link">  <Link to='#' onClick={handleLogout} >Logout</Link></a>
+                                        <li className="nav-item">
+                                            <span className="nav-link"> <Link to='/employees'>Employees</Link></span>
+                                        </li>
+                                        <li className="nav-item">
+                                            <span className="nav-link">  <Link to='/tickets'>Tickets</Link></span>
+                                        </li>
+                                        <li className="nav-item">
+                                            <span className="nav-link">  <Link to='#' onClick={handleLogout} >Logout</Link></span>
                                         </li>
                                     </ul>
                                 </div>
@@ -88,25 +115,32 @@ import EditTicket from './components/auth/EditTicket'
                 } 
                 <Switch>
                     <Route path='/' component={Home} exact={true}/>
+
                     <Route path='/users/login' component={Login}/>
                     <Route path='/users/register' component={Register}/>
-                    <Route path='/customers' component={Customers} exact={true}/>
-                    <Route path='/customers/new' component={AddCustomer}/>
-                    <Route path='/customers/:id' component={CustomerShow} exact={true}/>
-                    <Route path='/customers/edit/:id' component={EditCustomer}/>
-                    <Route path='/departments' component={Departments} exact={true}/>
-                    <Route path='/departments/new' component={AddDepartment}/>
-                    <Route path='/departments/:id' component={DepartmentShow} exact={true}/>
-                    <Route path='/departments/edit/:id' component={EditDepartment}/>
-                    <Route path='/employees' component={Employees} exact={true}/>
-                    <Route path='/employees/new' component={AddEmployee}/>
-                    <Route path='/employees/:id' component={EmployeeShow} exact={true}/>
-                    <Route path='/employees/edit/:id' component={EditEmployee}/>
-                    <Route path='/tickets' component={Tickets} exact={true}/>
-                    <Route path='/tickets/new' component={AddTicket}/>
-                    <Route path='/tickets/:id' component={TicketShow} exact={true}/>
-                    <Route path='/tickets/edit/:id' component={EditTicket}/>
-                    <Route render={
+                    <PrivateRoute path='/dashboard' component={Dashboard}/>
+                    <PrivateRoute path='/account' component={Account}/>
+
+                    <PrivateRoute path='/customers' component={Customers} exact={true}/>
+                    <PrivateRoute path='/customers/new' component={AddCustomer}/>
+                    <PrivateRoute path='/customers/:id' component={CustomerShow} exact={true}/>
+                    <PrivateRoute path='/customers/edit/:id' component={EditCustomer}/>
+
+                    <PrivateRoute path='/departments' component={Departments} exact={true}/>
+                    <PrivateRoute path='/departments/new' component={AddDepartment}/>
+                    <PrivateRoute path='/departments/:id' component={DepartmentShow} exact={true}/>
+                    <PrivateRoute path='/departments/edit/:id' component={EditDepartment}/>
+
+                    <PrivateRoute path='/employees' component={Employees} exact={true}/>
+                    <PrivateRoute path='/employees/new' component={AddEmployee}/>
+                    <PrivateRoute path='/employees/:id' component={EmployeeShow} exact={true}/>
+                    <PrivateRoute path='/employees/edit/:id' component={EditEmployee}/>
+                    
+                    <PrivateRoute path='/tickets' component={Tickets} exact={true}/>
+                    <PrivateRoute path='/tickets/new' component={AddTicket}/>
+                    <PrivateRoute path='/tickets/:id' component={TicketShow} exact={true}/>
+                    <PrivateRoute path='/tickets/edit/:id' component={EditTicket}/>
+                    <PrivateRoute render={
                         ()=><h1>error found</h1>
                     }/>
                 </Switch>

@@ -19,8 +19,6 @@ class Login extends React.Component{
 
     handleSubmit=(e)=>{
         e.preventDefault()
-        //const valid=this.validate()
-       
             const formData={
                 email:this.state.email,
                 password:this.state.password
