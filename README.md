@@ -1,68 +1,66 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Ticket-Master-UI
+# Overview
+This project enables the user to generate tickets, which keeps track of work given to specific department and status of that work i.e pending or completed.Their are four field customers ,department,employee and tickets which are related/connected with each other to generate final ticket.
 
-## Available Scripts
+# Dependencies/Packages
+1. axios
+2. bootstrap
+3. react
+4. react-dom
+5. react-redux,
+6. react-router-dom
+7. react-scripts,
+8. reactstrap
+9. redux
+10. redux-thunk
 
-In the project directory, you can run:
+# Usage
+# CRUD with customers
+* customer
+  - create customer with name mobile and email
+* addCustomer
+  - Create a new customer, with above feild.
+* editCustomer
+  - Change the details, name, remove/add customer.
+* customerDetails
+  - View the details of a particular customer.
+* delete
+  - Delete the customer
+# CRUD with department
+* department
+  - create department with department name 
+* addDepartment
+  - Create a new department, with above feild.
+* editDepartment
+  - Change the details,department name.
+* departmentDetails
+  - View the details of a particular department.
+* delete
+  - Delete the department
+# CRUD with employee
+* employee
+  - create employee with name, mobile,department and email
+* addEmployee
+  - Create a new employee, with above feild.
+* editEmployee
+  - Change the details, name, remove/add employee.
+* employeeDetails
+  - View the details of a particular employee.
+* delete
+  - Delete the employee  
+# CRUD with ticket
+* ticket
+  - create ticket with code,customer,department,employees,message,priority,toggle.
+* addTicket
+  - Create a newticket, with above feild.
+* editTicket
+  - Change the details, name, remove/add ticket.
+* ticketDetails
+  - View the details of a particular ticket.
+* delete
+  - Delete the ticket.
+# Final action  
+Genrate the ticket by above actions and keep track of it.  
 
-### `npm start`
-
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+# Author
+Bala Yadav Kumar
